@@ -1,0 +1,162 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f6f9;
+    color: #333;
+}
+
+.settings-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Page Header */
+.page-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-size: 2.5em;
+    color: #2c3e50;
+}
+
+.page-header p {
+    font-size: 1.2em;
+    color: #7f8c8d;
+}
+
+/* Navigation Tabs */
+.settings-navigation {
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.settings-navigation ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.settings-navigation ul li {
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.settings-navigation ul li.active,
+.settings-navigation ul li:hover {
+    background: #3C91E6;
+    color: white;
+}
+
+/* Settings Content */
+.settings-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Settings Sections */
+.settings-section {
+    display: none;
+}
+
+.settings-section.active {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Forms */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+input, textarea {
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    background: #f9f9f9;
+    transition: 0.3s;
+}
+
+input:focus, textarea:focus {
+    border-color: #3C91E6;
+    background: white;
+    outline: none;
+}
+
+/* Profile Picture */
+#profile-picture {
+    border: none;
+}
+
+/* Buttons */
+.btn {
+    padding: 12px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn.save {
+    background: #3C91E6;
+    color: white;
+}
+
+.btn.save:hover {
+    background: #2a6bb0;
+}
+
+.btn.regenerate {
+    background: #f39c12;
+    color: white;
+}
+
+.btn.regenerate:hover {
+    background: #e67e22;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .settings-navigation ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .settings-navigation ul li {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
+    .settings-content {
+        padding: 20px;
+    }
+}

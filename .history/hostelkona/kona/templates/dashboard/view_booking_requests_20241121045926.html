@@ -1,0 +1,21 @@
+<table>
+    <tr>
+        <th>Student</th>
+        <th>Room</th>
+        <th>Date Submitted</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    {% for request in requests %}
+    <tr>
+        <td>{{ request.user.username }}</td>
+        <td>{{ request.room.name }}</td>
+        <td>{{ request.date_submitted }}</td>
+        <td>{{ request.status }}</td>
+        <td>
+            <a href="{% url 'update-booking-request' request.id 'accept' %}">Accept</a>
+            <a href="{% url 'update-booking-request' request.id 'reject' %}">Reject</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

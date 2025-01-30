@@ -1,0 +1,42 @@
+{% extends 'dashboard/dashbase.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/pages/messages.css' %}">
+
+<div class="messages-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Reply to Message</h1>
+        <p>Respond to inquiries and complaints from hostel customers.</p>
+    </div>
+
+    <!-- Message Details -->
+    <div class="message-details">
+        <h2>Message from {{ message.sender.username }}</h2>
+        <div class="message-content">
+            <p><strong>Received at:</strong> {{ message.timestamp|date:"Y-m-d H:i" }}</p>
+            <p class="message-body">{{ message.decrypt_message }}</p>
+        </div>
+    </div>
+
+    <!-- Reply Form -->
+    <div class="reply-section">
+        <h2>Send Reply</h2>
+        <form class="reply-form" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="reply">Your Reply</label>
+                <textarea id="reply" name="reply" rows="5" placeholder="Type your reply here..." required></textarea>
+            </div>
+            <button type="submit" class="send-button">Send Reply</button>
+        </form>
+    </div>
+</div>
+
+<!-- Back Button -->
+<div class="back-button">
+    <a href="{% url 'messages_page' %}" class="btn">Back to Messages</a>
+</div>
+
+{% endblock %}

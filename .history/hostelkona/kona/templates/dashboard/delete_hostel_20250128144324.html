@@ -1,0 +1,15 @@
+{% extends 'dashboard/dashbase.html' %}
+
+{% block content %}
+<div class="delete-confirmation">
+    <h2>Delete Hostel</h2>
+    <p>Are you sure you want to delete the hostel "<strong>{{ hostel.name }}</strong>"?</p>
+    <p>This action cannot be undone.</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'manager_hostels' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock content %}

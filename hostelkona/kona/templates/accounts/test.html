@@ -1,0 +1,143 @@
+@login_required
+def manage_booking_request(request, request_id):
+    booking_request = get_object_or_404(
+        BookingRequest, 
+        id=request_id, 
+        room__hostel__manager=request.user
+    )
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        
+        if action == 'accept':
+            # Ensure no other request has been accepted for this room
+            if booking_request.room.bookingrequest_set.filter(status='Accepted').exists():
+                messages.error(request, "This room has already been booked.")
+                return redirect('dashboard')
+
+            # Mark the booking request as accepted
+            booking_request.status = 'Accepted'
+            booking_request.save()
+
+            # Create a Booking instance
+            Booking.objects.create(
+                user=booking_request.user,
+                room=booking_request.room,
+                start_date=booking_request.start_date,  # Ensure this field exists in BookingRequest
+                approved=True
+            )
+
+            # Mark the room as unavailable
+            booking_request.room.is_available = False
+            booking_request.room.save()
+
+            messages.success(request, "Request has been accepted.")
+
+            # Create a notification for the user
+            Notification.objects.create(
+                user=booking_request.user,
+                message=f"Your booking request for Room {booking_request.room.room_number} has been accepted."
+            )
+            # Redirect to the user's profile page after acceptance
+            return redirect('profile')
+
+        elif action == 'reject':
+            booking_request.status = 'Rejected'
+            booking_request.save()
+            messages.success(request, "Request has been rejected.")
+
+            # Create a rejection notification for the user
+            Notification.objects.create(
+                user=booking_request.user,
+                message=f"Your booking request for Room {booking_request.room.room_number} has been rejected."
+            )
+
+            # Redirect to the user's profile page after rejection
+            return redirect('profile')
+
+    return render(request, 'dashboard/request_detail.html', {
+        'booking_request': booking_request
+    })
+
+
+
+
+
+    @login_required
+    def book_room(request, room_id):
+        print(f"Requested Room ID: {room_id}")  
+    
+        try:
+            room = get_object_or_404(Room, id=room_id)
+            print(f"Room Found: {room}")
+        except Exception as e:
+            print(f"Error fetching room: {e}")
+            raise
+    
+        hostel = room.hostel
+        print(f"Hostel Found: {hostel}")
+    
+        
+        if BookingRequest.objects.filter(user=request.user, room__hostel=hostel).exists():
+            messages.error(request, "You have already made a booking request for this hostel.")
+            return redirect('booking_success')
+        
+        if not room.is_available:
+            messages.error(request, "Sorry, this room is no longer available for booking.")
+            return redirect('home_page')
+    
+        
+        if request.method == 'POST':
+            form = BookingRequestForm(request.POST)
+            if form.is_valid():
+                booking_request = form.save(commit=False)
+                booking_request.user = request.user
+                booking_request.room = room
+                booking_request.status = 'Pending'
+                booking_request.hostel = hostel
+                booking_request.save()
+    
+                room.is_available = False
+                room.save()
+    
+                messages.success(request, "Your booking request has been sent successfully!")
+                return redirect('booking_success')
+            else:
+                messages.error(request, "There was an error with your booking request.")
+        else:
+            form = BookingRequestForm()
+    
+        return render(request, 'customer/apply_room.html', {
+            'room': room,
+            'form': form,
+        })
+
+
+
+
+
+
+        @login_required(login_url='login')
+        def profile_view(request):
+            customer, created = Customer.objects.get_or_create(
+                user=request.user,
+                defaults={'name': request.user.username, 'email': request.user.email}
+            )
+        
+            accepted_booking = BookingRequest.objects.filter(user=request.user, status='Accepted').select_related('room', 'room__hostel').first()
+        
+           
+            transactions = Transaction.objects.filter(user=request.user)
+        
+           
+            notifications = request.user.notifications.filter(is_read=False)
+        
+          
+            context = {
+                'customer': customer,
+                'created': created,
+                'current_booking': accepted_booking.room if accepted_booking else None,  
+                'transactions': transactions,
+                'notifications': notifications,
+            }
+            return render(request, 'accounts/profile.html', context)

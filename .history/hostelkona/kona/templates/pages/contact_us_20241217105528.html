@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+
+<div class="container py-5">
+    <div class="contact-us card shadow-sm p-5">
+        <h1 class="text-center text-primary mb-4">Contact Us</h1>
+        <p class="text-center mb-4">
+            Reach out to us for support or inquiries. We're here to help you 24/7.
+        </p>
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="text-secondary">Our Office</h4>
+                <p><strong>Address:</strong> Thika Rd, Nairobi, Kenya</p>
+                <p><strong>Email:</strong> support@hostelmanagement.com</p>
+                <p><strong>Phone:</strong> +254 792 793056</p>
+            </div>
+            <div class="col-md-6">
+                <h4 class="text-secondary">Send Us a Message</h4>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Your Name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Your Email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

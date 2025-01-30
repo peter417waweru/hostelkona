@@ -1,0 +1,13 @@
+<h2>Available Rooms in {{ hostel.name }}</h2>
+<div class="room-list">
+    {% for room in available_rooms %}
+    <div class="room-card">
+        <h3>Room {{ room.room_number }}</h3>
+        <p><strong>Price:</strong> Ksh {{ room.price }}</p>
+        <p><strong>Type:</strong> {{ room.room_type }}</p>
+        <a href="{% url 'book_room' room.id %}" class="btn btn-primary">Book This Room</a>
+    </div>
+    {% empty %}
+    <p>No available rooms in this hostel at the moment.</p>
+    {% endfor %}
+</div>

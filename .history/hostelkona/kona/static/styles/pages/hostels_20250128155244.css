@@ -1,0 +1,115 @@
+/* General Styles */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+}
+
+h2 {
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+/* Table Styles */
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    padding: 15px;
+}
+
+.table th {
+    background-color: #2980b9;
+    color: white;
+    font-weight: bold;
+}
+
+.table td {
+    background-color: #ecf0f1;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #d1e7dd;
+}
+
+/* Button Styles */
+.btn {
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: #7f8c8d;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #6c757d;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+.btn-outline-secondary {
+    border: 1px solid #7f8c8d;
+    color: #7f8c8d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #7f8c8d;
+    color: white;
+}
+
+/* Badge Styles */
+.badge {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 12px;
+}
+
+.badge.bg-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .table-responsive {
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

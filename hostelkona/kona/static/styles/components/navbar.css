@@ -1,0 +1,113 @@
+/* NAVBAR.CSS */
+
+/* NAVBAR.CSS */
+
+/* Sticky Navbar */
+#content nav {
+    position: sticky; /* Sticky positioning */
+    top: 0; /* Stick to the top of the viewport */
+    left: 0; /* Align with the sidebar */
+    z-index: 1000; /* Ensure it's above other elements */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    padding: 0 24px;
+    background: #fff; /* Ensure consistent background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for visibility */
+}
+
+
+/* Navbar Spacing and Alignment */
+#content nav .nav-link {
+    font-size: 14px;
+    color: #333;
+    margin-right: auto; /* Push to the left */
+    margin-left: 20px;
+}
+
+#content nav .form-input {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between input and button */
+    background: #f1f1f1;
+    border-radius: 20px;
+    padding: 5px 10px;
+}
+
+#content nav .form-input input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    width: 250px; /* Fixed width for better layout */
+}
+
+#content nav .form-input button {
+    background: #3c91e6;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Notification Bell */
+#content nav .notification {
+    position: relative;
+    font-size: 20px;
+    color: #333;
+    margin-left: 24px; /* Space from the search bar */
+    cursor: pointer;
+}
+
+#content nav .notification .num {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background: #db504a;
+    color: #fff;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Profile Section */
+#content nav .profile {
+    display: flex;
+    align-items: center;
+    margin-left: 24px; /* Space from the notification */
+}
+
+#content nav .profile strong {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-right: 10px;
+}
+
+#content nav .profile img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    #content nav .form-input {
+        flex-grow: 1; /* Take more space */
+    }
+
+    #content nav .form-input input {
+        width: 150px; /* Smaller input for smaller screens */
+    }
+
+    #content nav .profile {
+        display: none; /* Hide profile for smaller screens */
+    }
+}

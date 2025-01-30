@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+
+<div class="container py-5">
+    <div class="help card shadow-sm p-5">
+        <h1 class="text-center text-primary mb-4">Help Center</h1>
+        <p class="text-center mb-4">Find answers to common questions and issues below:</p>
+        <hr>
+        <h4>1. How do I book a room?</h4>
+        <p>Simply log in to your account, browse available rooms, and click the "Book Now" button.</p>
+        <h4>2. How do I manage my booking?</h4>
+        <p>You can manage your bookings by visiting your profile page under "Current Bookings".</p>
+        <h4>3. How do I contact support?</h4>
+        <p>Visit the <a href="{% url 'contact_us' %}">Contact Us</a> page and fill out the form. Our team will respond shortly.</p>
+        <h4>4. How do I reset my password?</h4>
+        <p>On the login page, click "Forgot Password?" and follow the instructions to reset your password.</p>
+    </div>
+</div>
+{% endblock content %}

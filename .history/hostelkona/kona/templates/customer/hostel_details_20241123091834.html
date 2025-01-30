@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<head>
+    <title>{{ hostel.name }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+</head>
+
+<body>
+    <div class="hostel-details-container">
+
+        <div class="hostel-left">
+            <h1>{{ hostel.name }}</h1>
+            <div class="image-gallery">
+                <img src="{{ hostel.Images.url }}" alt="{{ hostel.name }}">
+            </div>
+            {% if user.is_authenticated %}
+                <a href="{% url 'room_booking' room_id=hostel.id %}" class="btn btn-primary">Apply for a Room</a>
+            {% else %}
+                <strong>You must be logged in first as a hostel customer to apply for a room.</strong>
+            {% endif %}
+        </div>
+
+        <div class="hostel-right">
+            <div class="hostel-description">
+                <h2>Description</h2>
+                <p>{{ hostel.description }}</p>
+            </div>
+
+            <div class="hostel-amenities">
+                <h2>Amenities:</h2>
+                <ul>
+                    <li>{{ hostel.amenities }}</li>
+                </ul>
+            </div>
+
+            <div class="hostel-address">
+                <h2>Address</h2>
+                <address>{{ hostel.address }}</address>
+            </div>
+
+            <div class="hostel-contact">
+                <h2>Contact</h2>
+                <p>WhatsApp or call: {{ hostel.contact_no }}</p>
+                <p>Email: {{ hostel.email }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="related-hostels">
+        <h2>Related Hostels</h2>
+        <div class="hostel-row">
+            {% for related_hostel in related_hostels %}
+                <div class="related-hostel-item">
+                    <a href="{% url 'hostel_details' related_hostel.id %}">
+                        <img src="{{ related_hostel.Images.url }}" alt="{{ related_hostel.name }}">
+                        <h3>{{ related_hostel.name }}</h3>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+{% endblock content %}

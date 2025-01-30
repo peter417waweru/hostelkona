@@ -1,0 +1,154 @@
+{% extends 'dashboard/dashbase.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/pages/settings.css' %}">
+
+<main class="settings-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1><i class="fas fa-cogs"></i> Settings</h1>
+        <p>Manage your account, security, and preferences.</p>
+    </div>
+
+    <!-- Settings Navigation -->
+    <div class="settings-navigation">
+        <ul>
+            <li class="active" data-tab="profile-settings"><i class="fas fa-user"></i> Profile</li>
+            <li data-tab="hostel-settings"><i class="fas fa-home"></i> Hostel</li>
+            <li data-tab="notifications-settings"><i class="fas fa-bell"></i> Notifications</li>
+            <li data-tab="security-settings"><i class="fas fa-lock"></i> Security</li>
+            <li data-tab="billing-settings"><i class="fas fa-credit-card"></i> Billing</li>
+            <li data-tab="api-settings"><i class="fas fa-plug"></i> API Integrations</li>
+        </ul>
+    </div>
+
+    <!-- Settings Content -->
+    <div class="settings-content">
+        <!-- Profile Settings -->
+        <section id="profile-settings" class="settings-section active">
+            <h2><i class="fas fa-user"></i> Profile Settings</h2>
+            <form>
+                <label for="username">Username:</label>
+                <input type="text" id="username" value="{{ user.username }}" placeholder="Update your username">
+                
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" value="{{ user.email }}" placeholder="Update your email">
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" value="{{ user.phone }}" placeholder="Enter your phone number">
+                
+                <label for="profile-picture">Profile Picture:</label>
+                <div class="profile-picture-upload">
+                    <input type="file" id="profile-picture">
+                    <span class="file-name">No file chosen</span>
+                </div>
+
+                <button type="submit" class="btn save"><i class="fas fa-save"></i> Save Changes</button>
+            </form>
+        </section>
+
+        <!-- Hostel Settings -->
+        <section id="hostel-settings" class="settings-section">
+            <h2><i class="fas fa-home"></i> Hostel Settings</h2>
+            <form>
+                <label for="hostel-name">Hostel Name:</label>
+                <input type="text" id="hostel-name" value="{{ hostel.name }}" placeholder="Enter hostel name">
+
+                <label for="address">Address:</label>
+                <textarea id="address" placeholder="Enter hostel address">{{ hostel.address }}</textarea>
+
+                <label for="amenities">Amenities:</label>
+                <input type="text" id="amenities" value="{{ hostel.amenities }}" placeholder="Comma-separated list of amenities">
+
+                <button type="submit" class="btn save"><i class="fas fa-save"></i> Save Changes</button>
+            </form>
+        </section>
+
+        <!-- Notifications Settings -->
+        <section id="notifications-settings" class="settings-section">
+            <h2><i class="fas fa-bell"></i> Notifications Settings</h2>
+            <form>
+                <label class="toggle-label">
+                    <input type="checkbox" id="email-notifications" {% if user.email_notifications %}checked{% endif %}>
+                    <span class="toggle-slider"></span> Enable Email Notifications
+                </label>
+
+                <label class="toggle-label">
+                    <input type="checkbox" id="sms-notifications" {% if user.sms_notifications %}checked{% endif %}>
+                    <span class="toggle-slider"></span> Enable SMS Notifications
+                </label>
+
+                <button type="submit" class="btn save"><i class="fas fa-save"></i> Save Changes</button>
+            </form>
+        </section>
+
+        <!-- Security Settings -->
+        <section id="security-settings" class="settings-section">
+            <h2><i class="fas fa-lock"></i> Security Settings</h2>
+            <form>
+                <label for="current-password">Current Password:</label>
+                <input type="password" id="current-password" placeholder="Enter your current password">
+
+                <label for="new-password">New Password:</label>
+                <input type="password" id="new-password" placeholder="Enter a new password">
+
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" placeholder="Re-enter the new password">
+                
+                <button type="submit" class="btn save"><i class="fas fa-lock"></i> Update Password</button>
+            </form>
+        </section>
+
+        <!-- Billing Settings -->
+        <section id="billing-settings" class="settings-section">
+            <h2><i class="fas fa-credit-card"></i> Billing Settings</h2>
+            <form>
+                <label for="card-number">Card Number:</label>
+                <input type="text" id="card-number" placeholder="Enter your credit card number">
+                
+                <label for="billing-address">Billing Address:</label>
+                <textarea id="billing-address" placeholder="Enter your billing address">{{ user.billing_address }}</textarea>
+                
+                <button type="submit" class="btn save"><i class="fas fa-save"></i> Save Billing Info</button>
+            </form>
+        </section>
+
+        <!-- API Integrations -->
+        <section id="api-settings" class="settings-section">
+            <h2><i class="fas fa-plug"></i> API Integrations</h2>
+            <form>
+                <label for="api-key">API Key:</label>
+                <div class="api-key-box">
+                    <input type="text" id="api-key" value="{{ user.api_key }}" readonly>
+                    <button type="button" class="btn regenerate"><i class="fas fa-sync"></i> Regenerate</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Handle tab switching
+        const tabs = document.querySelectorAll('.settings-navigation ul li');
+        const sections = document.querySelectorAll('.settings-section');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                tabs.forEach(t => t.classList.remove('active'));
+                sections.forEach(sec => sec.classList.remove('active'));
+
+                this.classList.add('active');
+                document.getElementById(this.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+
+        // Handle file upload display
+        document.getElementById('profile-picture').addEventListener('change', function () {
+            document.querySelector('.file-name').textContent = this.files[0] ? this.files[0].name : "No file chosen";
+        });
+    });
+</script>
+
+{% endblock content %}

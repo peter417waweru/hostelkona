@@ -1,0 +1,108 @@
+{% extends 'dashbase.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/dashboard.css' %}">
+<div class="analytics-container">
+    <h1>Analytics Dashboard</h1>
+    
+    <div class="analytics-summary">
+        <h2>Summary</h2>
+        <p>Total Bookings: {{ total_bookings }}</p>
+        <p>Approved Bookings: {{ approved_bookings }}</p>
+        <p>Pending Bookings: {{ pending_bookings }}</p>
+        <p>Available Rooms: {{ available_rooms }}</p>
+        <p>Occupied Rooms: {{ occupied_rooms }}</p>
+        <p>Total Revenue: ${{ total_revenue }}</p>
+    </div>
+
+    <div class="charts-container">
+        <h2>Visual Analytics</h2>
+        <div>
+            <canvas id="bookingsChart" width="400" height="200"></canvas>
+        </div>
+        <div>
+            <canvas id="revenueChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Pass data safely into JavaScript -->
+<script id="bookings-data" type="application/json">
+    {{ bookings_per_hostel|json_script:"bookings" }}
+</script>
+<script id="revenue-data" type="application/json">
+    {{ revenue_per_hostel|json_script:"revenue" }}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Parse JSON data safely
+    const bookingsData = JSON.parse(document.getElementById('bookings-data').textContent);
+    const revenueData = JSON.parse(document.getElementById('revenue-data').textContent);
+
+    // Extract labels and data for bookings chart
+    const bookingsLabels = bookingsData.map(item => item.hostel__name);
+    const bookingsCounts = bookingsData.map(item => item.total);
+
+    // Extract labels and data for revenue chart
+    const revenueLabels = revenueData.map(item => item.booking__hostel__name);
+    const revenueTotals = revenueData.map(item => item.total);
+
+    // Render Bookings Chart
+    const bookingsCtx = document.getElementById('bookingsChart').getContext('2d');
+    new Chart(bookingsCtx, {
+        type: 'bar',
+        data: {
+            labels: bookingsLabels,
+            datasets: [{
+                label: 'Bookings Per Hostel',
+                data: bookingsCounts,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true
+                },
+                title: {
+                    display: true,
+                    text: 'Bookings Per Hostel'
+                }
+            }
+        }
+    });
+
+    // Render Revenue Chart
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(revenueCtx, {
+        type: 'bar',
+        data: {
+            labels: revenueLabels,
+            datasets: [{
+                label: 'Revenue Per Hostel',
+                data: revenueTotals,
+                backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                borderColor: 'rgba(255, 159, 64, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true
+                },
+                title: {
+                    display: true,
+                    text: 'Revenue Per Hostel'
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/dashboard.css' %}">
+    <title>Settings - Hostel Manager Dashboard</title>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">Manager</span>
+		</a>
+		<button id="sidebar-toggle" class="sidebar-toggle">
+			<i class='bx bx-menu'></i>
+		</button>
+		<ul class="side-menu top">
+			<li class="active">
+				<a href="#">
+					<i class='bx bxs-dashboard'></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'manager_hostels' %}">
+					<i class='bx bxs-shopping-bag-alt'></i>
+					<span class="text">My Hostels</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text">Analytics</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-message-dots'></i>
+					<span class="text">Message</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-group'></i>
+					<span class="text">Team</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li id="settings-link">
+				<a href="{% url 'settings' %}" class="{% if request.path == '/settings/' %}active{% endif %}">
+					<i class='bx bxs-cog'></i>
+					<span class="text">Settings</span>
+				</a>
+			</li>
+			
+			<li>
+				<a href="{% url 'logout' %}" class="logout">
+					<i class='bx bxs-log-out-circle'></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+       
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <section id="content">
+        <main>
+            <nav>
+                <a href="#" class="nav-link">Categories</a>
+                <form action="#">
+                    <div class="form-input">
+                        <input type="search" placeholder="Search...">
+                        <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+                    </div>
+                </form>
+                <input type="checkbox" id="switch-mode" hidden>
+                <label for="switch-mode" class="switch-mode"></label>
+                <a href="#" class="notification">
+                    <i class='bx bxs-bell'></i>
+                    <span class="num">8</span>
+                </a>
+                
+                <!-- Profile Image (Dynamic) -->
+                <a href="{% url 'update_profile' %}" class="profile">
+                    <strong>{{ request.user.username }}</strong>
+                    <img src="{{ request.user.profile.profile_picture.url }}" alt="Profile Image">
+                </a>
+            </nav>
+            
+
+            <!-- SETTINGS NAVIGATION -->
+            <div class="settings-navigation">
+                <ul>
+                    <li class="active"><a href="#profile-settings">Profile</a></li>
+                    <li><a href="#hostel-settings">Hostel</a></li>
+                    <li><a href="#notifications-settings">Notifications</a></li>
+                    <li><a href="#security-settings">Security</a></li>
+                    <li><a href="#billing-settings">Billing</a></li>
+                    <li><a href="#theme-settings">Theme</a></li>
+                    <li><a href="#api-settings">API Integrations</a></li>
+                </ul>
+            </div>
+
+            <!-- SETTINGS SECTIONS -->
+            <div class="settings-content">
+                <!-- Profile Settings -->
+                <section id="profile-settings" class="settings-section active">
+                    <h2>Profile Settings</h2>
+                    <form>
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" value="{{ user.username }}" placeholder="Update your username">
+                        
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" value="{{ user.email }}" placeholder="Update your email">
+
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" value="{{ user.phone }}" placeholder="Enter your phone number">
+                        
+                        <label for="profile-picture">Profile Picture:</label>
+                        <input type="file" id="profile-picture">
+                        
+                        <button type="submit" class="btn save">Save Changes</button>
+                    </form>
+                </section>
+
+                <!-- Hostel Settings -->
+                <section id="hostel-settings" class="settings-section">
+                    <h2>Hostel Settings</h2>
+                    <form>
+                        <label for="hostel-name">Hostel Name:</label>
+                        <input type="text" id="hostel-name" value="{{ hostel.name }}" placeholder="Enter hostel name">
+
+                        <label for="address">Address:</label>
+                        <textarea id="address" placeholder="Enter hostel address">{{ hostel.address }}</textarea>
+
+                        <label for="amenities">Amenities:</label>
+                        <input type="text" id="amenities" value="{{ hostel.amenities }}" placeholder="Comma-separated list of amenities">
+
+                        <button type="submit" class="btn save">Save Changes</button>
+                    </form>
+                </section>
+
+                <!-- Notifications Settings -->
+                <section id="notifications-settings" class="settings-section">
+                    <h2>Notifications Settings</h2>
+                    <form>
+                        <label>
+                            <input type="checkbox" id="email-notifications" {% if user.email_notifications %}checked{% endif %}>
+                            Enable Email Notifications
+                        </label>
+                        
+                        <label>
+                            <input type="checkbox" id="sms-notifications" {% if user.sms_notifications %}checked{% endif %}>
+                            Enable SMS Notifications
+                        </label>
+
+                        <button type="submit" class="btn save">Save Changes</button>
+                    </form>
+                </section>
+
+                <!-- Security Settings -->
+                <section id="security-settings" class="settings-section">
+                    <h2>Security Settings</h2>
+                    <form>
+                        <label for="current-password">Current Password:</label>
+                        <input type="password" id="current-password" placeholder="Enter your current password">
+
+                        <label for="new-password">New Password:</label>
+                        <input type="password" id="new-password" placeholder="Enter a new password">
+
+                        <label for="confirm-password">Confirm Password:</label>
+                        <input type="password" id="confirm-password" placeholder="Re-enter the new password">
+                        
+                        <button type="submit" class="btn save">Update Password</button>
+                    </form>
+                </section>
+
+                <!-- Billing Settings -->
+                <section id="billing-settings" class="settings-section">
+                    <h2>Billing Settings</h2>
+                    <form>
+                        <label for="card-number">Card Number:</label>
+                        <input type="text" id="card-number" placeholder="Enter your credit card number">
+                        
+                        <label for="billing-address">Billing Address:</label>
+                        <textarea id="billing-address" placeholder="Enter your billing address">{{ user.billing_address }}</textarea>
+                        
+                        <button type="submit" class="btn save">Save Billing Info</button>
+                    </form>
+                </section>
+
+                <!-- Theme Settings -->
+                <section id="theme-settings" class="settings-section">
+                    <h2>Theme Settings</h2>
+                    <form>
+                        <label for="theme">Choose Theme:</label>
+                        <select id="theme">
+                            <option value="light" {% if theme == 'light' %}selected{% endif %}>Light</option>
+                            <option value="dark" {% if theme == 'dark' %}selected{% endif %}>Dark</option>
+                        </select>
+                        
+                        <button type="submit" class="btn save">Save Theme</button>
+                    </form>
+                </section>
+
+                <!-- API Integrations -->
+                <section id="api-settings" class="settings-section">
+                    <h2>API Integrations</h2>
+                    <form>
+                        <label for="api-key">API Key:</label>
+                        <input type="text" id="api-key" value="{{ user.api_key }}" readonly>
+                        
+                        <button type="button" class="btn regenerate">Regenerate API Key</button>
+                    </form>
+                </section>
+            </div>
+        </main>
+    </section>
+
+    <script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>

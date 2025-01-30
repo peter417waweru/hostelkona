@@ -1,0 +1,16 @@
+<h2>Add Hostel</h2>
+<h3>Room Details</h3>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ hostel_form.as_p }}
+
+    {{ room_formset.management_form }}
+    {% for form in room_formset %}
+        <div class="room-form">
+            {{ form.as_p }}
+        </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary">Add Hostel and Rooms</button>
+</form>
+<a href="{% url 'dashboard' %}">Back to Dashboard</a>

@@ -1,0 +1,46 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+h2 {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table th {
+    background-color: #343a40;
+    color: white;
+}
+
+.table td {
+    background-color: #f8f9fa;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #e2e6ea;
+}
+
+.btn {
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.text-primary {
+    font-weight: bold;
+}
+
+.badge {
+    font-size: 0.9rem;
+}

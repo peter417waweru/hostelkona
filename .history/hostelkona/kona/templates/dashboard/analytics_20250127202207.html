@@ -1,0 +1,14 @@
+{% extends 'dashbase.html' %}
+
+{% block content %}
+<div class="analytics-container">
+    <h2>Analytics Dashboard</h2>
+    <div class="analytics-section">
+        <!-- Occupancy Chart -->
+        <div class="chart-container">
+            <h3>Occupancy Rate</h3>
+            <canvas id="occupancyChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+</div>
+{% endblock %}

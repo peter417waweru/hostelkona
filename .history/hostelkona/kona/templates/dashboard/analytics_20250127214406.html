@@ -1,0 +1,151 @@
+{% extends 'dashbase.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/dashboard.css' %}">
+<div class="analytics-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Analytics Dashboard</h1>
+        <p>Gain insights into your hostel's performance with key metrics and visualizations.</p>
+    </div>
+
+    <!-- Key Metrics Section -->
+    <div class="key-metrics">
+        <div class="metric-card">
+            <h3>Total Bookings</h3>
+            <p>{{ total_bookings }}</p>
+        </div>
+        <div class="metric-card">
+            <h3>Approved Bookings</h3>
+            <p>{{ approved_bookings }}</p>
+        </div>
+        <div class="metric-card">
+            <h3>Pending Bookings</h3>
+            <p>{{ pending_bookings }}</p>
+        </div>
+        <div class="metric-card">
+            <h3>Available Rooms</h3>
+            <p>{{ available_rooms }}</p>
+        </div>
+        <div class="metric-card">
+            <h3>Occupied Rooms</h3>
+            <p>{{ occupied_rooms }}</p>
+        </div>
+        <div class="metric-card">
+            <h3>Total Revenue</h3>
+            <p>${{ total_revenue }}</p>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-section">
+        <h2>Visual Analytics</h2>
+        
+        <div class="chart-wrapper">
+            <h3>Bookings Per Hostel</h3>
+            <canvas id="bookingsChart"></canvas>
+        </div>
+
+        <div class="chart-wrapper">
+            <h3>Revenue Per Hostel</h3>
+            <canvas id="revenueChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Table for Detailed Data -->
+    <div class="detailed-data">
+        <h2>Most Searched Hostels</h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Hostel</th>
+                    <th>Search Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for hostel in most_searched_hostels %}
+                <tr>
+                    <td>{{ hostel.hostel__name }}</td>
+                    <td>{{ hostel.search_count }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2" class="no-data">No data available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Chart Configurations -->
+<script>
+    // Bookings Chart
+    const bookingsData = JSON.parse(document.getElementById('bookings-data').textContent);
+    const bookingsLabels = bookingsData.map(item => item.hostel__name);
+    const bookingsCounts = bookingsData.map(item => item.total);
+
+    const bookingsCtx = document.getElementById('bookingsChart').getContext('2d');
+    new Chart(bookingsCtx, {
+        type: 'bar',
+        data: {
+            labels: bookingsLabels,
+            datasets: [{
+                label: 'Bookings Per Hostel',
+                data: bookingsCounts,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true
+                },
+                title: {
+                    display: true,
+                    text: 'Bookings Per Hostel'
+                }
+            }
+        }
+    });
+
+    // Revenue Chart
+    const revenueData = JSON.parse(document.getElementById('revenue-data').textContent);
+    const revenueLabels = revenueData.map(item => item.booking__hostel__name);
+    const revenueTotals = revenueData.map(item => item.total);
+
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(revenueCtx, {
+        type: 'bar',
+        data: {
+            labels: revenueLabels,
+            datasets: [{
+                label: 'Revenue Per Hostel',
+                data: revenueTotals,
+                backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                borderColor: 'rgba(255, 159, 64, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true
+                },
+                title: {
+                    display: true,
+                    text: 'Revenue Per Hostel'
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

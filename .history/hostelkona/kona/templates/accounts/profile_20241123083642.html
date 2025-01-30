@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="profile-page">
+    <!-- User Details -->
+    <div class="user-details">
+        <h2>{{ customer.name }}</h2>
+        <p><strong>Phone:</strong> {{ customer.phone }}</p>
+        <p><strong>Email:</strong> {{ customer.email }}</p>
+
+        {% if current_booking %}
+        <h3>Current Booking</h3>
+        <p><strong>Hostel:</strong> {{ current_booking.hostel.name }}</p>
+        <p><strong>Room Number:</strong> {{ current_booking.room_number }}</p>
+        <p><strong>Price:</strong> Ksh {{ current_booking.price }}</p>
+        {% else %}
+        <p class="no-bookings">You have no active bookings.</p>
+        {% endif %}
+    </div>
+
+    <!-- Transaction History -->
+    <div class="transaction-history">
+        <h3>Transaction History</h3>
+        {% if transactions %}
+        <table class="transaction-table">
+            <thead>
+                <tr>
+                    <th>Receipt ID</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.receipt_id }}</td>
+                    <td>{{ transaction.date|date:"M d, Y" }}</td>
+                    <td>Ksh {{ transaction.amount }}</td>
+                    <td>
+                        <a href="{% url 'download_receipt' transaction.receipt_id %}" class="btn btn-sm btn-primary">
+                            Download Receipt
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No transaction history available.</p>
+        {% endif %}
+    </div>
+
+    <!-- Notifications -->
+    <div class="notifications-section">
+        <h3>Notifications</h3>
+        {% if notifications %}
+        <ul class="notification-list">
+            {% for notification in notifications %}
+            <li>
+                <span>{{ notification.message }}</span>
+                <span class="timestamp">{{ notification.created_at|date:"M d, Y H:i" }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        <form method="post" action="{% url 'mark_notifications_read' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-secondary">Mark All as Read</button>
+        </form>
+        {% else %}
+        <p class="no-notifications">You have no new notifications.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

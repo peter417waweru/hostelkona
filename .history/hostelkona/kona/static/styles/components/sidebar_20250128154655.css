@@ -1,0 +1,83 @@
+/* SIDEBAR.CSS */
+
+/* Sidebar Layout */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100%;
+    background: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 2000;
+    transition: width 0.3s ease;
+    overflow: hidden;
+}
+
+#sidebar.hide {
+    width: 60px;
+}
+
+#sidebar .brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #3c91e6;
+}
+
+#sidebar .brand .bx {
+    font-size: 28px;
+    margin-right: 10px;
+}
+
+#sidebar ul.side-menu {
+    margin-top: 20px;
+    padding: 0;
+}
+
+#sidebar ul.side-menu li {
+    margin-bottom: 10px;
+}
+
+#sidebar ul.side-menu li a {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+#sidebar ul.side-menu li a .bx {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+#sidebar ul.side-menu li a:hover,
+#sidebar ul.side-menu li.active a {
+    background: #3c91e6;
+    color: #fff;
+}
+
+#sidebar ul.side-menu li a:hover .bx,
+#sidebar ul.side-menu li.active a .bx {
+    color: #fff;
+}
+
+/* Navbar Layout Adjustments */
+#content {
+    position: relative;
+    width: calc(100% - 280px); /* Sidebar width when expanded */
+    margin-left: 280px;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+#sidebar.hide ~ #content {
+    width: calc(100% - 60px); /* Sidebar width when collapsed */
+    margin-left: 60px;
+}

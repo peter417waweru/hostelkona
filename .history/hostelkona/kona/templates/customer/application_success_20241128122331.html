@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="success-page">
+    <h1>Application Submitted Successfully</h1>
+    <p>Thank you for your application! Our team will review your request and get back to you shortly.</p>
+    <a href="{% url 'home_page' %}" class="btn btn-primary">Return to Home</a>
+    <a href="{% url 'profile' %}" class="btn btn-secondary">View Your Profile</a>
+</div>
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Welcome to Home Page</h1>
+
+    {% if hostels %}
+    <div class="image-gallery">
+        {% for hostel in hostels %}
+            <div class="gallery-item">
+                <a href="{% url 'hostel_details' hostel.id %}">
+                    <img src="{{ hostel.Images.url }}" alt="{{ hostel.name }}">
+                    <h3>{{ hostel.name }}</h3>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>No hostels available at the moment. Please check back later.</p>
+    {% endif %}
+
+    <h2>Available Hostels</h2>
+    <div class="image-gallery">
+        {% for hostel in hostels %}
+        <div class="gallery-item">
+            <a href="{% url 'hostel_details' hostel.id %}">
+                <img src="{{ hostel.Images.url }}" alt="{{ hostel.name }}" width="200">
+                <h3>{{ hostel.name }}</h3>
+            </a>
+            <a href="{% url 'hostel_details' hostel.id %}" class="btn btn-primary">View Details</a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

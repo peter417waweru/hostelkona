@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Apply for a Room in {{ room.hostel.name }}</h2>
+
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit" class="btn btn-primary">Submit Booking Request</button>
+</form>
+
+<h3>Related Rooms</h3>
+{% if related_rooms_by_type %}
+    {% for room_type, rooms in related_rooms_by_type.items %}
+    <div class="room-type">
+        <h4>{{ room_type|title }}</h4>
+        <div class="room-list">
+            {% for related_room in rooms %}
+            <div class="room-card">
+                <img src="{{ related_room.images.url if related_room.images else '/media/room_images/default_room.jpg' }}" alt="Room Image">
+                <p><strong>Room Number:</strong> {{ related_room.room_number }}</p>
+                <p><strong>Price:</strong> Ksh {{ related_room.price }}</p>
+                <a href="{% url 'book_room' related_room.id %}" class="room-link">View Room</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No related rooms available at this time.</p>
+{% endif %}
+
+{% endblock content %}

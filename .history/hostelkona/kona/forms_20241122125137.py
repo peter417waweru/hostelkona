@@ -1,0 +1,58 @@
+from django import forms
+from .models import Room, Booking, Hostel, BookingRequest, ManagerProfile, RoomType
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+
+class HostelCustomerForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+    
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+
+class BookingForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        fields = ['hostel', 'room','start_date']
+
+
+class HostelForm(forms.ModelForm):
+    number_of_rooms = forms.IntegerField(min_value=1, required=True, label="Number of Rooms")
+    room_types = forms.ModelMultipleChoiceField(
+        queryset=RoomType.objects.all(),
+        widget=forms.CheckboxSelectMultiple,  # Or any other widget you prefer
+        required=True,
+        label="Room Types"
+    )
+
+    class Meta:
+        model = Hostel
+        fields = ['name', 'Images', 'description', 'amenities', 'address', 'contact_no', 'email', 'number_of_rooms', 'room_types']
+
+class RoomForm(forms.ModelForm):
+    class Meta:
+        model = Room
+        fields = ['room_number', 'room_type', 'price', 'is_available', 'images']
+        widgets = {
+            'room_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'room_type': forms.Select(attrs={'class': 'form-control'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'is_available': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'images': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }
+
+class BookingRequestForm(forms.ModelForm):
+    class Meta:
+        model = BookingRequest
+        fields = ['message']  
+
+class ManagerProfileForm(forms.ModelForm):
+    class Meta:
+        model = ManagerProfile
+        fields = ['profile_picture', 'contact_number']
+        widgets = {
+            'profile_picture': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'contact_number': forms.TextInput(attrs={'class': 'form-control'}),
+        }

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Management</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+  <nav>
+    <ul class="sidebar">
+
+      <li onclick= hideSidebar() ><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg> </a></li>
+      <li><a href="{% url 'home_page' %}">Home</a></li>
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'profile' %}">Profile</a></li>
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+      {% else %}
+      <li><a href="{% url 'login' %}">Login</a></li>
+      <li><a href="{% url 'register' %}">Register</a></li>
+      {% endif %}
+    </ul>
+    <ul>
+
+      <li><a href="{% url 'home_page' %}">Home</a></li>
+      {% if user.is_authenticated %}
+      <form class="header__search" method="GET" action="{% url 'home_page' %}">
+        <label>
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                <title>search</title>
+                <path d="M32 30.586l-10.845-10.845c1.771-2.092 2.845-4.791 2.845-7.741 0-6.617-5.383-12-12-12s-12 5.383-12 12c0 6.617 5.383 12 12 12 2.949 0 5.649-1.074 7.741-2.845l10.845 10.845 1.414-1.414zM12 22c-5.514 0-10-4.486-10-10s4.486-10 10-10c5.514 0 10 4.486 10 10s-4.486 10-10 10z"></path>
+            </svg>
+            <input name="q" placeholder="Search for hostels here..." />
+        </label>
+      </form>
+      <li class="hideOnMobile"><a href="{% url 'profile' %}">Profile</a></li>
+      <li class="hideOnMobile"><a href="{% url 'profile' %}">  {{ user.username }} </a></li>
+      <li class="hideOnMobile"><a href="{% url 'logout' %}">Logout</a></li>
+      {% else %}
+      <form class="header__search" method="GET" action="{% url 'home_page' %}">
+        <label>
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                <title>search</title>
+                <path d="M32 30.586l-10.845-10.845c1.771-2.092 2.845-4.791 2.845-7.741 0-6.617-5.383-12-12-12s-12 5.383-12 12c0 6.617 5.383 12 12 12 2.949 0 5.649-1.074 7.741-2.845l10.845 10.845 1.414-1.414zM12 22c-5.514 0-10-4.486-10-10s4.486-10 10-10c5.514 0 10 4.486 10 10s-4.486 10-10 10z"></path>
+            </svg>
+            <input name="q" placeholder="Search for hostels..." />
+        </label>
+      </form>
+      <li class="hideOnMobile"><a href="{% url 'login' %}">Login</a></li>
+      <li class="hideOnMobile"><a href="{% url 'register' %}">Register</a></li>
+      {% endif %}
+      <li class="menu-button" onclick= showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
+  </ul>
+  </nav>
+
+    <div class="content">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+	<footer class="section-p1">
+		<div class="col">
+			<img class="logo1" src="{% static 'images/Logo1.png' %}" alt="">
+			<h4>Contact</h4>
+			<p><strong>Address:</strong> Thika Rd · 020 2211263</p>
+			<p><strong>Phone:</strong> tel: +254 792 793056</p>
+			<p><strong>Hours:</strong> 8:00am - 5:00pm, Mon - Sat </p>
+			<div class="follow">
+				<h4>Follow us</h4>
+				<div class="icon">
+					<i class="fab fa-facebook"></i>
+					<i class="fab fa-twitter"></i>
+					<i class="fab fa-instagram"></i>
+					<i class="fab fa-pinterest-p"></i>
+					<i class="fab fa-youtube"></i>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<h4>About</h4>
+			<a href="#">About us</a>
+			<a href="#">Delivery Information</a>
+			<a href="#">Privacy Policy</a>
+			<a href="#">Terms and Condition</a>
+			<a href="#">Contact Us</a>
+		</div>
+		<div class="col">
+			<h4>MY Account</h4>
+			<a href="#">Sign In</a>
+			<a href="#">View Cart</a>
+			<a href="#">My Wishlist</a>
+			<a href="#">Track My Order</a>
+			<a href="#">Help</a>
+		</div>
+		<div class="col install">
+			<h4>Install App</h4>
+			<p>From App Store or Google Play</p>
+			<div class="row">
+				<img src="{% static 'images/App.png' %}" alt="">
+				<img src="{% static 'images/Play.png' %}" alt="">
+			</div>
+			<p> Secured Payment Gateways</p>
+			<img class="PayM" src="{% static 'images/PayM.png' %}" alt="">
+		</div>
+		<div class="footer text-center py-3 bg-dark text-white">
+      <p>&copy; {{ year }} Hostel Booking. All Rights Reserved.</p>
+  </div>
+	</footer>
+
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>

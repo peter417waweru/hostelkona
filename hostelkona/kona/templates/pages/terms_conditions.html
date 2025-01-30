@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+
+<div class="container py-5">
+    <div class="terms card shadow-sm p-5">
+        <h1 class="text-center text-primary mb-4">Terms & Conditions</h1>
+        <p>Welcome to our Hostel Management System. By using our services, you agree to the following terms:</p>
+        <hr>
+        <h3>1. Use of Services</h3>
+        <p>
+            Our platform is provided to simplify hostel and room bookings. Users are required to provide
+            accurate information during registration and booking.
+        </p>
+        <h3>2. Payment</h3>
+        <p>
+            All payments must be made securely through the platform. Refund policies are subject to hostel
+            management rules.
+        </p>
+        <h3>3. User Conduct</h3>
+        <p>
+            Users must adhere to respectful communication and avoid misuse of the platform.
+            Violations may result in account suspension.
+        </p>
+        <h3>4. Changes to Terms</h3>
+        <p>
+            We reserve the right to update these terms at any time. Users will be notified of significant changes.
+        </p>
+    </div>
+</div>
+{% endblock content %}

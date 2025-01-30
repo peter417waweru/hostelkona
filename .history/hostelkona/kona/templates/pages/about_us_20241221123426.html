@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+
+<div class="container py-5">
+    <div class="about-us card shadow-sm p-5">
+        <h1 class="text-center text-primary mb-4">About Us</h1>
+        <p class="lead text-center mb-4">
+            We are a leading platform dedicated to providing comfortable and affordable hostel accommodations.
+        </p>
+        <hr>
+        <h3 class="text-secondary">Our Mission</h3>
+        <p>
+            Our mission is to simplify hostel management and ensure students and tenants find the perfect rooms
+            with ease. We focus on user-friendly services and seamless booking experiences.
+        </p>
+        <h3 class="text-secondary mt-4">What We Do</h3>
+        <p>
+            - Provide an easy-to-use platform for hostel managers and tenants.<br>
+            - Simplify room booking, payment, and management processes.<br>
+            - Enable hassle-free communication between managers and tenants.
+        </p>
+        <div class="text-center mt-4">
+            <img src="{% static 'images/H & R/Abut.jpg' %}" alt="About Us" class="img-fluid rounded shadow">
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,118 @@
+{% extends 'dashbase.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/settings.css' %}">
+<main>
+
+    <!-- SETTINGS NAVIGATION -->
+    <div class="settings-navigation">
+        <ul>
+            <li class="active"><a href="#profile-settings">Profile</a></li>
+            <li><a href="#hostel-settings">Hostel</a></li>
+            <li><a href="#notifications-settings">Notifications</a></li>
+            <li><a href="#security-settings">Security</a></li>
+            <li><a href="#billing-settings">Billing</a></li>
+            <li><a href="#theme-settings">Theme</a></li>
+            <li><a href="#api-settings">API Integrations</a></li>
+        </ul>
+    </div>
+    <div class="settings-content">
+        <!-- Profile Settings -->
+        <section id="profile-settings" class="settings-section active">
+            <h2>Profile Settings</h2>
+            <form>
+                <label for="username">Username:</label>
+                <input type="text" id="username" value="{{ user.username }}" placeholder="Update your username">
+                
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" value="{{ user.email }}" placeholder="Update your email">
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" value="{{ user.phone }}" placeholder="Enter your phone number">
+                
+                <label for="profile-picture">Profile Picture:</label>
+                <input type="file" id="profile-picture">
+                
+                <button type="submit" class="btn save">Save Changes</button>
+            </form>
+        </section>
+
+        <!-- Hostel Settings -->
+        <section id="hostel-settings" class="settings-section">
+            <h2>Hostel Settings</h2>
+            <form>
+                <label for="hostel-name">Hostel Name:</label>
+                <input type="text" id="hostel-name" value="{{ hostel.name }}" placeholder="Enter hostel name">
+
+                <label for="address">Address:</label>
+                <textarea id="address" placeholder="Enter hostel address">{{ hostel.address }}</textarea>
+
+                <label for="amenities">Amenities:</label>
+                <input type="text" id="amenities" value="{{ hostel.amenities }}" placeholder="Comma-separated list of amenities">
+
+                <button type="submit" class="btn save">Save Changes</button>
+            </form>
+        </section>
+
+        <!-- Notifications Settings -->
+        <section id="notifications-settings" class="settings-section">
+            <h2>Notifications Settings</h2>
+            <form>
+                <label>
+                    <input type="checkbox" id="email-notifications" {% if user.email_notifications %}checked{% endif %}>
+                    Enable Email Notifications
+                </label>
+                
+                <label>
+                    <input type="checkbox" id="sms-notifications" {% if user.sms_notifications %}checked{% endif %}>
+                    Enable SMS Notifications
+                </label>
+
+                <button type="submit" class="btn save">Save Changes</button>
+            </form>
+        </section>
+
+        <!-- Security Settings -->
+        <section id="security-settings" class="settings-section">
+            <h2>Security Settings</h2>
+            <form>
+                <label for="current-password">Current Password:</label>
+                <input type="password" id="current-password" placeholder="Enter your current password">
+
+                <label for="new-password">New Password:</label>
+                <input type="password" id="new-password" placeholder="Enter a new password">
+
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" placeholder="Re-enter the new password">
+                
+                <button type="submit" class="btn save">Update Password</button>
+            </form>
+        </section>
+
+        <!-- Billing Settings -->
+        <section id="billing-settings" class="settings-section">
+            <h2>Billing Settings</h2>
+            <form>
+                <label for="card-number">Card Number:</label>
+                <input type="text" id="card-number" placeholder="Enter your credit card number">
+                
+                <label for="billing-address">Billing Address:</label>
+                <textarea id="billing-address" placeholder="Enter your billing address">{{ user.billing_address }}</textarea>
+                
+                <button type="submit" class="btn save">Save Billing Info</button>
+            </form>
+        </section>
+
+        <!-- API Integrations -->
+        <section id="api-settings" class="settings-section">
+            <h2>API Integrations</h2>
+            <form>
+                <label for="api-key">API Key:</label>
+                <input type="text" id="api-key" value="{{ user.api_key }}" readonly>
+                
+                <button type="button" class="btn regenerate">Regenerate API Key</button>
+            </form>
+        </section>
+    </div>
+</main>
+{% endblock content %}

@@ -1,0 +1,53 @@
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+
+    <div class="booking-container">
+        <div class="room-details">
+            <h2>Book a Room in {{ room.hostel.name }}</h2>
+            <p class="room-description">{{ room.description }}</p>
+            <p><strong>Price per night:</strong> ${{ room.price }}</p>
+        </div>
+        <div class="top-section">
+            <div class="room-image">
+                <img src="{{ room.images.url }}" alt="{{ room_type }}">
+            </div>
+        </div>
+
+        <form method="post" action="{% url 'book_room' room.id %}" class="booking-form">
+            {% csrf_token %}
+
+            <div class="form-field">
+                <label for="hostel">Hostel</label>
+                <input type="text" id="hostel" value="{{ room.hostel.name }}" readonly>
+            </div>
+
+            <div class="form-field">
+                <label for="room">Room</label>
+                <input type="text" id="room" value="{{ room.room_number }}" readonly>
+            </div>
+
+            <div class="form-field">
+                {{ form.start_date.label_tag }}
+                {{ form.start_date }}
+            </div>
+
+            <button type="submit" class="submit-btn">Book Now</button>
+        </form>
+
+        <div class="related-rooms">
+            <h3>Explore More Rooms</h3>
+            <div class="room-list">
+                {% for related_room in related_rooms %}
+                <div class="room-card">
+                    <img src="{{ related_room.images.url }}" alt="Room Image">
+                    <p> {{ related_room.room_type }}</p>
+                    <p> <strong>Price:</strong> ${{ related_room.price }}</p>
+                    <a href="{% url 'room_booking' related_room.id %}" class="room-link">View Room</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

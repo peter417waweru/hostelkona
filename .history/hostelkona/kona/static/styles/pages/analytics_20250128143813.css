@@ -1,0 +1,50 @@
+.analytics-container {
+    padding: 20px;
+}
+
+.page-header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.page-header h1 {
+    font-size: 28px;
+    color: var(--blue);
+}
+
+.key-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.metric-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 150px;
+}
+
+.metric-card h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.metric-card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--blue);
+}
+
+.chart-wrapper {
+    margin-top: 16px;
+    background: var(--light);
+    border: 1px solid var(--grey);
+    padding: 16px;
+    border-radius: 8px;
+}

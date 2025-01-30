@@ -1,0 +1,186 @@
+/* General Styling */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Main Container */
+.container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Page Header */
+h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #343a40;
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 12px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #343a40;
+    color: white;
+    font-size: 1rem;
+}
+
+.table td {
+    background-color: #f8f9fa;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f1f3f5;
+}
+
+/* Hover Effect for Table Rows */
+.table-hover tbody tr:hover {
+    background-color: #e2e6ea;
+}
+
+/* Action Buttons */
+.btn {
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+.btn-sm {
+    padding: 6px 12px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-outline-secondary {
+    background-color: transparent;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Room Availability Badge */
+.badge {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border-radius: 12px;
+}
+
+.badge.bg-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Text Muted for No Data */
+.text-muted {
+    color: #6c757d;
+}
+
+/* Centered Text for Buttons */
+.text-center {
+    text-align: center;
+}
+
+/* Form Styling */
+form {
+    display: grid;
+    gap: 16px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    width: 100%;
+}
+
+input[type="file"] {
+    padding: 8px;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    .btn-sm {
+        font-size: 0.85rem;
+        padding: 5px 10px;
+    }
+
+    .table th, .table td {
+        font-size: 0.9rem;
+    }
+}

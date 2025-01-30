@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hostel Management{% endblock title %}</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home_page' %}">
+                <img src="{% static 'images/logo.png' %}" alt="Logo" width="50" class="d-inline-block align-text-top">
+                Hostel Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home_page' %}">Home</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+                {% if user.is_authenticated %}
+                <form class="d-flex ms-3" method="GET" action="{% url 'home_page' %}">
+                    <input class="form-control me-2" type="search" placeholder="Search hostels" name="q" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-5">
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light pt-5">
+        <div class="container">
+            <div class="row">
+                <!-- Contact Section -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="mb-3" width="50">
+                    <h5>Contact</h5>
+                    <p><strong>Address:</strong> Thika Rd · 020 2211263</p>
+                    <p><strong>Phone:</strong> +254 792 793056</p>
+                    <p><strong>Hours:</strong> 8:00am - 5:00pm, Mon - Sat</p>
+                    <div>
+                        <h6>Follow us:</h6>
+                        <i class="fab fa-facebook me-2"></i>
+                        <i class="fab fa-twitter me-2"></i>
+                        <i class="fab fa-instagram me-2"></i>
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                </div>
+
+                <!-- About Section -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>About</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">About Us</a></li>
+                        <li><a href="#" class="text-light">Privacy Policy</a></li>
+                        <li><a href="#" class="text-light">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+
+                <!-- Account Section -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>My Account</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Sign In</a></li>
+                        <li><a href="#" class="text-light">View Cart</a></li>
+                        <li><a href="#" class="text-light">Wishlist</a></li>
+                    </ul>
+                </div>
+
+                <!-- Install App Section -->
+                <div class="col-lg-3 col-md-6">
+                    <h5>Install App</h5>
+                    <p>Download from</p>
+                    <div class="d-flex">
+                        <img src="{% static 'images/App.png' %}" alt="App Store" class="me-2" width="100">
+                        <img src="{% static 'images/Play.png' %}" alt="Google Play" width="100">
+                    </div>
+                    <p class="mt-3">Secured Payment Gateways:</p>
+                    <img src="{% static 'images/PayM.png' %}" alt="Payment Methods" class="img-fluid">
+                </div>
+            </div>
+            <div class="text-center py-3">
+                <p>© 2024 Hostel Management. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>

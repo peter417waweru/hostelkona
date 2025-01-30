@@ -1,0 +1,56 @@
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/dashboard.css' %}">
+
+<h2 class="text-center">Add Hostel and Rooms</h2>
+
+<form method="post" enctype="multipart/form-data" class="form-container">
+    {% csrf_token %}
+    
+    <div class="form-section">
+        {{ hostel_form.as_p }}
+    </div>
+
+    <div class="form-group">
+        <label for="number_of_rooms">Number of Rooms</label>
+        <input 
+            type="number" 
+            name="number_of_rooms" 
+            id="number_of_rooms"
+            class="form-control" 
+            min="1" 
+            max="500" 
+            placeholder="Enter the number of rooms" 
+            required
+        >
+    </div>
+
+    <!-- Room Types Selection -->
+    <div class="form-group">
+        <label for="room_types">Room Types</label>
+        <select 
+            name="room_types" 
+            id="room_types" 
+            class="form-control" 
+            multiple 
+            required
+        >
+            {% for room_type in room_types %}
+                <option value="{{ room_type.id }}">{{ room_type.name }}</option>
+            {% endfor %}
+        </select>
+        <small class="form-text text-muted">Hold down Ctrl (Windows) or Command (Mac) to select multiple room types.</small>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary btn-block">Add Hostel and Rooms</button>
+    </div>
+</form>
+
+<!-- Back to Dashboard Link -->
+<div class="back-to-dashboard">
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+
+{% endblock content %}

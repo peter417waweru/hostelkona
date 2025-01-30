@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/dashboard.css' %}">
+
+    <title>Settings - Manager Dashboard</title>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <i class='bx bxs-smile'></i>
+            <span class="text">Manager</span>
+        </a>
+        <button id="sidebar-toggle" class="sidebar-toggle">
+            <i class='bx bx-menu'></i>
+        </button>
+        <ul class="side-menu top">
+            <li class="active">
+                <a href="#">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'manager_hostels' %}">
+                    <i class='bx bxs-shopping-bag-alt'></i>
+                    <span class="text">My Hostels</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bxs-doughnut-chart'></i>
+                    <span class="text">Analytics</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bxs-message-dots'></i>
+                    <span class="text">Message</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">Team</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+            <li id="settings-link" class="active">
+                <a href="{% url 'settings' %}">
+                    <i class='bx bxs-cog'></i>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}" class="logout">
+                    <i class='bx bxs-log-out-circle'></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <a href="#" class="nav-link">Categories</a>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label>
+            <a href="#" class="notification">
+                <i class='bx bxs-bell'></i>
+                <span class="num">8</span>
+            </a>
+            
+            <!-- Profile Image (Dynamic) -->
+            <a href="{% url 'update_profile' %}" class="profile">
+                <strong>{{ request.user.username }}</strong>
+                <img src="{{ request.user.profile.profile_picture.url }}" alt="Profile Image">
+            </a>
+        </nav>
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Settings</h1>
+                </div>
+            </div>
+
+            <!-- Settings Form -->
+            <div class="settings-form">
+                <form action="{% url 'update_settings' %}" method="POST">
+                    {% csrf_token %}
+                    <h3>Profile Settings</h3>
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" value="{{ request.user.email }}" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" value="{{ request.user.username }}" required>
+                    </div>
+
+                    <h3>Change Password</h3>
+                    <div class="input-group">
+                        <label for="password">New Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter new password">
+                    </div>
+                    <div class="input-group">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm new password">
+                    </div>
+
+                    <h3>Other Settings</h3>
+                    <div class="input-group">
+                        <label for="language">Preferred Language</label>
+                        <select name="language" id="language">
+                            <option value="english">English</option>
+                            <option value="spanish">Spanish</option>
+                            <option value="french">French</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <button type="submit" class="btn-submit">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </section>
+
+    <script src="{% static 'js/dashboard.js' %}"></script>
+
+    <script>
+        // Highlight the active settings link
+        document.addEventListener("DOMContentLoaded", function() {
+            let currentUrl = window.location.pathname;
+            if (currentUrl.includes("settings")) {
+                document.getElementById("settings-link").classList.add("active");
+            }
+        });
+    </script>
+
+</body>
+</html>

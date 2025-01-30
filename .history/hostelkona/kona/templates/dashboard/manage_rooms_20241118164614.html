@@ -1,0 +1,15 @@
+<h2>Manage Rooms for {{ hostel.name }}</h2>
+
+<h3>Add a Room</h3>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Room</button>
+</form>
+
+<h3>Existing Rooms</h3>
+<ul>
+    {% for room in rooms %}
+        <li>{{ room.room_number }} - {{ room.room_type }} - {{ room.price }}</li>
+    {% endfor %}
+</ul>

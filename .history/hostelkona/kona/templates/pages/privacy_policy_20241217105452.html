@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+
+<div class="container py-5">
+    <div class="privacy-policy card shadow-sm p-5">
+        <h1 class="text-center text-primary mb-4">Privacy Policy</h1>
+        <p>
+            We value your privacy and are committed to protecting your personal information.
+            This policy explains how we collect, use, and safeguard your data.
+        </p>
+        <hr>
+        <h3>Information We Collect</h3>
+        <ul>
+            <li>Your contact details (e.g., email, phone number).</li>
+            <li>Information related to bookings and payments.</li>
+            <li>Usage data collected through cookies and analytics tools.</li>
+        </ul>
+        <h3>How We Use Your Information</h3>
+        <p>
+            We use your data to improve our services, process bookings, communicate updates,
+            and ensure the smooth operation of our platform.
+        </p>
+        <h3>Your Rights</h3>
+        <p>
+            You can request access, correction, or deletion of your personal information at any time.
+        </p>
+    </div>
+</div>
+{% endblock content %}

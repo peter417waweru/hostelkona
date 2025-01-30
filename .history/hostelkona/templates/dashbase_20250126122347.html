@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'css/dashbase.css' %}">
+	<title>Manager Dashboard</title>
+</head>
+<body>
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class='bx bxs-smile'></i>
+			<span class="text">Manager</span>
+		</a>
+		<button id="sidebar-toggle" class="sidebar-toggle">
+			<i class='bx bx-menu'></i>
+		</button>
+		<ul class="side-menu top">
+			<li class="active">
+				<a href="#">
+					<i class='bx bxs-dashboard'></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'manager_hostels' %}">
+					<i class='bx bxs-shopping-bag-alt'></i>
+					<span class="text">My Hostel</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text">Analytics</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-message-dots'></i>
+					<span class="text">Message</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-group'></i>
+					<span class="text">Team</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li id="settings-link">
+				<a href="{% url 'settings' %}" class="{% if request.path == '/settings/' %}active{% endif %}">
+					<i class='bx bxs-cog'></i>
+					<span class="text">Settings</span>
+				</a>
+			</li>
+			
+			<li>
+				<a href="{% url 'logout' %}" class="logout">
+					<i class='bx bxs-log-out-circle'></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<a href="#" class="nav-link">Categories</a>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="notification">
+				<i class='bx bxs-bell'></i>
+				<span class="num">8</span>
+			</a>
+			
+			<!-- Profile Image (Dynamic) -->
+			<a href="{% if is_hostel_manager %}{% url 'settings' %}#profile-settings{% else %}{% url 'profile' %}{% endif %}" class="profile">
+				<strong>{{ request.user.username }}</strong>
+				<img src="{{ request.user.profile.profile_picture.url }}" alt="Profile Image">
+			</a>						
+		</nav>
+		
+		<!-- MAIN CONTENT -->
+		<div class="main-content">
+			{% block content %}
+			<!-- Child template content will be injected here -->
+			{% endblock content %}
+		</div>
+	</section>
+
+	<script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>

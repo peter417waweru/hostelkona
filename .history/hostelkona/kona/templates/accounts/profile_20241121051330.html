@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="profile-page">
+    <!-- User Details -->
+    <div class="user-details">
+        <h2>{{ customer.name }}</h2>
+        <p><strong>Phone:</strong> {{ customer.phone }}</p>
+        <p><strong>Email:</strong> {{ customer.email }}</p>
+
+        {% if current_booking %}
+        <p><strong>Hostel:</strong> {{ current_booking.hostel.name }}</p>
+        <p><strong>Room:</strong> {{ current_booking.room.room_number }}</p>
+        {% else %}
+        <p>No active bookings</p>
+        {% endif %}
+    </div>
+
+    <!-- Transaction History -->
+    <div class="transaction-history">
+        <h3>Transaction History</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Receipt ID</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.receipt_id }}</td>
+                    <td>{{ transaction.date }}</td>
+                    <td>${{ transaction.amount }}</td>
+                    <td>
+                        <a href="{% url 'download_receipt' transaction.receipt_id %}">
+                            Download
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<h2>Notifications</h2>
+{% if notifications %}
+    <ul>
+        {% for notification in notifications %}
+            <li>{{ notification.message }} - {{ notification.created_at|date:"M d, Y H:i" }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No new notifications.</p>
+{% endif %}
+
+{% endblock content %}

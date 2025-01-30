@@ -1,0 +1,23 @@
+/* DARK MODE */
+body.dark {
+    background: #121212;
+    color: #ffffff;
+}
+
+body.dark #sidebar {
+    background: #1e1e1e;
+}
+
+body.dark #content nav {
+    background: #1e1e1e;
+}
+
+body.dark .metric-card {
+    background: #333333;
+    color: #ffffff;
+}
+
+body.dark .chart-wrapper {
+    background: #333333;
+    border: 1px solid #555;
+}

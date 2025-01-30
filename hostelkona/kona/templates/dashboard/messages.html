@@ -1,0 +1,98 @@
+{% extends 'dashboard/dashbase.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/pages/messages.css' %}">
+
+<div class="messages-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Messages</h1>
+        <p>Manage customer inquiries and complaints securely.</p>
+    </div>
+
+    <!-- Message Tabs -->
+    <div class="message-tabs">
+        <button class="tab-button active" data-tab="inbox">Inbox</button>
+        <button class="tab-button" data-tab="sent">Sent</button>
+        <button class="tab-button" data-tab="compose">Compose</button>
+    </div>
+
+    <!-- Inbox Section -->
+    <div id="inbox" class="tab-content active">
+        <h2>Inbox</h2>
+        <div class="message-list">
+            {% for message in inbox_messages %}
+            <div class="message-card {% if not message.is_read %}unread{% endif %}">
+                <div class="message-header">
+                    <h3>From: {{ message.sender.username }}</h3>
+                    <span class="message-date">{{ message.timestamp|date:"Y-m-d H:i" }}</span>
+                </div>
+                <p class="message-preview">{{ message.decrypt_message|truncatechars:50 }}</p>
+                <a href="{% url 'reply_message' message.id %}" class="view-message">View & Reply</a>
+            </div>
+            {% empty %}
+            <p class="no-messages">No messages in your inbox.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Sent Messages Section -->
+    <div id="sent" class="tab-content">
+        <h2>Sent Messages</h2>
+        <div class="message-list">
+            {% for message in sent_messages %}
+            <div class="message-card">
+                <div class="message-header">
+                    <h3>To: {{ message.receiver.username }}</h3>
+                    <span class="message-date">{{ message.timestamp|date:"Y-m-d H:i" }}</span>
+                </div>
+                <p class="message-preview">{{ message.decrypt_message|truncatechars:50 }}</p>
+            </div>
+            {% empty %}
+            <p class="no-messages">No sent messages.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Compose Message Section -->
+    <div id="compose" class="tab-content">
+        <h2>Compose Message</h2>
+        <form class="compose-form" method="post" action="{% url 'send_message' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="recipient">Recipient Username</label>
+                <input type="text" id="recipient" name="recipient" placeholder="Enter recipient's username" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
+            </div>
+            <button type="submit" class="send-button">Send Message</button>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript for Tabs -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tabs = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                const targetTab = this.getAttribute('data-tab');
+
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(tc => tc.classList.remove('active'));
+
+                // Add active class to the clicked tab and corresponding content
+                this.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+    });
+</script>
+
+{% endblock %}

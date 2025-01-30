@@ -1,0 +1,14 @@
+<div class="request-detail">
+    <h2>Request Details</h2>
+    <p><strong>User:</strong> {{ booking_request.user.username }}</p>
+    <p><strong>Room:</strong> {{ booking_request.room.room_number }} - {{ booking_request.room.hostel.name }}</p>
+    <p><strong>Date Requested:</strong> {{ booking_request.date_submitted|date:"d-m-Y H:i" }}</p>
+    <p><strong>Status:</strong> {{ booking_request.status }}</p>
+    <p><strong>Message:</strong> {{ booking_request.message }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" name="action" value="accept" class="btn btn-success">Accept</button>
+        <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
+    </form>
+</div>

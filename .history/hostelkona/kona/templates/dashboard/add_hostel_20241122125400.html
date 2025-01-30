@@ -1,0 +1,17 @@
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/dashboard.css' %}">
+
+<h2>Add Hostel and Rooms</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ hostel_form.as_p }}
+
+    <button type="submit" class="btn btn-primary">Add Hostel and Rooms</button>
+</form>
+
+<a href="{% url 'dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+>
+
+{% endblock content %}

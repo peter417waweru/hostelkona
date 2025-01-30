@@ -1,0 +1,167 @@
+
+/* SETTINGS NAVIGATION */
+.settings-navigation {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.settings-navigation ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.settings-navigation ul li {
+    margin: 0;
+}
+
+.settings-navigation ul li a {
+    text-decoration: none;
+    padding: 10px 20px;
+    background: #e9ecef;
+    color: #333;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.settings-navigation ul li.active a,
+.settings-navigation ul li a:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+/* SETTINGS SECTION STYLING */
+.settings-content {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.settings-content h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 8px;
+}
+
+.settings-section {
+    display: none;
+    margin-bottom: 20px;
+}
+
+.settings-section.active {
+    display: block;
+}
+
+.settings-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.settings-section label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.settings-section input,
+.settings-section textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.settings-section input:focus,
+.settings-section textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+}
+
+.settings-section textarea {
+    resize: none;
+    min-height: 100px;
+}
+
+.settings-section .btn.save {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.settings-section .btn.save:hover {
+    background-color: #0056b3;
+}
+
+.settings-section .btn.regenerate {
+    background-color: #6c757d;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.settings-section .btn.regenerate:hover {
+    background-color: #5a6268;
+}
+
+.settings-section input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.settings-section label > input[type="checkbox"] {
+    margin-right: 10px;
+    accent-color: #007bff;
+}
+
+.settings-section input[type="file"] {
+    border: none;
+    padding: 5px 0;
+    font-size: 14px;
+}
+
+/* RESPONSIVE DESIGN */
+@media screen and (max-width: 768px) {
+    .settings-content {
+        padding: 15px;
+    }
+
+    .settings-section form {
+        gap: 12px;
+    }
+
+    .settings-content h2 {
+        font-size: 20px;
+    }
+
+    .settings-section .btn.save,
+    .settings-section .btn.regenerate {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}

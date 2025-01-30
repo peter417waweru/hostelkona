@@ -1,0 +1,53 @@
+/* Custom CSS for Hostels Page */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-left: 20px; /* Add left padding to the card */
+    margin-right: 20px; /* Add right padding for balance */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline-secondary, .btn-outline-danger, .btn-outline-primary {
+    transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover, .btn-outline-danger:hover, .btn-outline-primary:hover {
+    color: #fff;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+/* Center-align the nested rooms table */
+.nested-table-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    padding-left: 20px; /* Add left padding */
+    padding-right: 20px; /* Add right padding */
+}
+
+.nested-table {
+    width: 80%; /* Adjust table width */
+    margin: 0 auto; /* Center the table */
+}
+
+/* Add padding to the main container */
+.container-fluid {
+    padding-left: 40px; /* Add left padding to the main container */
+    padding-right: 40px; /* Add right padding for balance */
+}

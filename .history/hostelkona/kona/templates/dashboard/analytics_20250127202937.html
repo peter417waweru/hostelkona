@@ -1,0 +1,53 @@
+{% extends 'dashbase.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/dashboard.css' %}">
+<div class="analytics-container">
+    <h2>Analytics Dashboard</h2>
+    <div class="analytics-section">
+        <!-- Occupancy Chart -->
+        <div class="chart-container">
+            <h3>Occupancy Rate</h3>
+            <canvas id="occupancyChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const fetchOccupancyData = async () => {
+        const response = await fetch('/api/occupancy-rate/?start_date=2025-01-01&end_date=2025-01-27');
+        const data = await response.json();
+
+        // Render the chart
+        const ctx = document.getElementById('occupancyChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut', // Doughnut chart for visualizing rates
+            data: {
+                labels: ['Occupied Rooms', 'Available Rooms'],
+                datasets: [{
+                    label: 'Occupancy Rate',
+                    data: [data.occupied_rooms, data.total_rooms - data.occupied_rooms],
+                    backgroundColor: ['#36A2EB', '#FF6384'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: `Occupancy Rate: ${data.occupancy_rate}%`
+                    }
+                }
+            }
+        });
+    };
+
+    fetchOccupancyData();
+</script>
+
+{% endblock %}
